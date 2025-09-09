@@ -1,10 +1,9 @@
 const mysql = require("mysql2");
 const path = require("path");
 
-// Automatically select env file
+// Correct path: go one level up from config/
 const envFile = process.env.DOCKER_ENV === "true" ? ".env.docker" : ".env.local";
-
-require("dotenv").config({ path: path.resolve(__dirname, envFile) });
+require("dotenv").config({ path: path.resolve(__dirname, "..", envFile) });
 
 // Debug: check if env variables are loaded
 console.log("DB_HOST:", process.env.DB_HOST);
