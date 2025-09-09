@@ -1,5 +1,6 @@
 const request = require("supertest");
 const app = require("../server");
+const db = require("../config/db");
 
 describe("Student API Integration Tests", () => {
   it("should insert a new student", async () => {
@@ -21,4 +22,9 @@ describe("Student API Integration Tests", () => {
     expect(res.statusCode).toBe(200);
     expect(Array.isArray(res.body)).toBe(true);
   });
+});
+
+// ✅ Close DB pool after tests
+afterAll(async () => {
+  await db.end();
 });
