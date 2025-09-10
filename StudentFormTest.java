@@ -3,11 +3,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
+import java.time.Duration;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 
 public class StudentFormTest {
     public static void main(String[] args) throws InterruptedException {
         // Set path to your chromedriver
-        System.setProperty("webdriver.chrome.driver","C:/Users/aksha/Downloads/chromedriver-win64/chromedriver-win64/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver","C:/Users/aksha/Downloads/chromedriver-win64 (1)/chromedriver-win64/chromedriver.exe");
 
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
@@ -38,14 +42,17 @@ public class StudentFormTest {
         // 3. Submit the form
         driver.findElement(By.tagName("button")).click();
 
-        // 4. Handle alert message
-        Thread.sleep(2000); // wait for alert
+        // 4. Handle alert message using WebDriverWait
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.alertIsPresent());
+
         String alertMsg = driver.switchTo().alert().getText();
         System.out.println("✅ Alert Message: " + alertMsg);
-
         driver.switchTo().alert().accept(); // close alert
+
 
         // Close browser
         driver.quit();
     }
+
 }
